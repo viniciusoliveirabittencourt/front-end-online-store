@@ -13,6 +13,5 @@ class App extends React.Component {
       </BrowserRouter>
     );
   }
-}
-// Commit
+
 export default App;
