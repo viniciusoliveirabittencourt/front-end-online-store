@@ -4,11 +4,9 @@ import { getCategories, getProductsFromCategoryAndQuery } from '../services/api'
 import CardCategories from './CardCategories';
 import ProductCard from './ProductCard';
 
-
 class TelaPrincipal extends React.Component {
   constructor() {
     super();
-
 
     this.state = {
       products: [],
@@ -26,9 +24,9 @@ class TelaPrincipal extends React.Component {
     this.setState({ [name]: value });
   }
 
-  callApi = async () => {
+  callApi = async (params = '') => {
     const { searchFor } = this.state;
-    const search = await getProductsFromCategoryAndQuery('', searchFor);
+    const search = await getProductsFromCategoryAndQuery(params, searchFor);
     this.setState({ products: search.results });
   }
 
@@ -74,7 +72,8 @@ class TelaPrincipal extends React.Component {
             {categories
               .map((element) => (<CardCategories
                 key={ element.id }
-                category={ element.name }
+                category={ element }
+                onClick={ this.callApi }
               />))}
           </ul>
         </section>
