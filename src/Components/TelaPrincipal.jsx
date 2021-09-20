@@ -4,11 +4,9 @@ import { getCategories, getProductsFromCategoryAndQuery } from '../services/api'
 import CardCategories from './CardCategories';
 import ProductCard from './ProductCard';
 
-
 class TelaPrincipal extends React.Component {
   constructor() {
     super();
-
 
     this.state = {
       products: [],
