@@ -4,9 +4,11 @@ import { getCategories, getProductsFromCategoryAndQuery } from '../services/api'
 import CardCategories from './CardCategories';
 import ProductCard from './ProductCard';
 
+
 class TelaPrincipal extends React.Component {
   constructor() {
     super();
+
 
     this.state = {
       products: [],
@@ -37,6 +39,7 @@ class TelaPrincipal extends React.Component {
 
   render() {
     const { searchFor, categories, products } = this.state;
+
     return (
       <div>
         <label htmlFor="searchFor" data-testid="home-initial-message">
@@ -65,6 +68,7 @@ class TelaPrincipal extends React.Component {
             &#x1F6D2;carrinho de compras
           </span>
         </Link>
+
         <section>
           <ul>
             {categories
