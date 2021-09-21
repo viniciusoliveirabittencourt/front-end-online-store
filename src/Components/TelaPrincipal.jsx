@@ -12,7 +12,9 @@ class TelaPrincipal extends React.Component {
       products: [],
       searchFor: '',
       categories: [],
+      carr: [],
     };
+    this.addItemToCar = this.addItemToCar.bind(this);
   }
 
   componentDidMount() {
@@ -24,9 +26,9 @@ class TelaPrincipal extends React.Component {
     this.setState({ [name]: value });
   }
 
-  callApi = async () => {
+  callApi = async (params = '') => {
     const { searchFor } = this.state;
-    const search = await getProductsFromCategoryAndQuery('', searchFor);
+    const search = await getProductsFromCategoryAndQuery(params, searchFor);
     this.setState({ products: search.results });
   }
 
@@ -35,9 +37,13 @@ class TelaPrincipal extends React.Component {
     this.setState({ categories: data });
   }
 
-  render() {
-    const { searchFor, categories, products } = this.state;
+  addItemToCar(title, price, img, id) {
+    const { carr } = this.state;
+    carr.push({ title, price, img, id });
+  }
 
+  render() {
+    const { searchFor, categories, products, carr } = this.state;
     return (
       <div>
         <label htmlFor="searchFor" data-testid="home-initial-message">
@@ -58,7 +64,10 @@ class TelaPrincipal extends React.Component {
           Search
         </button>
 
-        <Link data-testid="shopping-cart-button" to="/carrinho">
+        <Link
+          data-testid="shopping-cart-button"
+          to={ { pathname: '/carrinho', carrArr: carr } }
+        >
           <span
             role="img"
             aria-label="carrinho compra icone"
@@ -72,19 +81,22 @@ class TelaPrincipal extends React.Component {
             {categories
               .map((element) => (<CardCategories
                 key={ element.id }
-                category={ element.name }
+                category={ element }
+                onClick={ this.callApi }
               />))}
           </ul>
         </section>
         <section>
           {products
-            .map(({ title, price, id, thumbnail }) => (
-              <ProductCard
-                key={ id }
-                img={ thumbnail }
-                title={ title }
-                price={ price }
-              />))}
+            .map(({ title, price, id, thumbnail }) => (<ProductCard
+              products={ products }
+              id={ id }
+              key={ id }
+              img={ thumbnail }
+              title={ title }
+              price={ price }
+              onClick={ this.addItemToCar }
+            />))}
         </section>
       </div>
     );

@@ -3,15 +3,27 @@ import PropTypes from 'prop-types';
 
 class CardCategories extends React.Component {
   render() {
-    const { category } = this.props;
+    const { category: { name, id }, onClick } = this.props;
     return (
       <li>
-        <h3 data-testid="category">{category}</h3>
+        <button
+          type="button"
+          onClick={ () => onClick(id) }
+          data-testid="category"
+        >
+          { name }
+        </button>
       </li>
+
     );
   }
 }
 
-CardCategories.propTypes = { category: PropTypes.string.isRequired };
+CardCategories.propTypes = {
+  category: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.string,
+  }).isRequired,
+  onClick: PropTypes.func.isRequired };
 
 export default CardCategories;
