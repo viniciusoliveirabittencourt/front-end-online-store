@@ -12,7 +12,7 @@ class TelaPrincipal extends React.Component {
       products: [],
       searchFor: '',
       categories: [],
-      carr: [],
+      cartItems: [],
     };
     this.addItemToCar = this.addItemToCar.bind(this);
   }
@@ -38,14 +38,13 @@ class TelaPrincipal extends React.Component {
   }
 
   addItemToCar(title, price, img, id) {
-    const { carr } = this.state;
     this.setState({
-      carr: [...carr, { title, price, img, id }],
+      cartItems: [{ title, price, img, id }],
     });
   }
 
   render() {
-    const { searchFor, categories, products, carr } = this.state;
+    const { searchFor, categories, products, cartItems } = this.state;
     return (
       <div>
         <label htmlFor="searchFor" data-testid="home-initial-message">
@@ -68,7 +67,7 @@ class TelaPrincipal extends React.Component {
 
         <Link
           data-testid="shopping-cart-button"
-          to={ { pathname: '/carrinho', carrArr: carr } }
+          to={ { pathname: '/carrinho', carrArr: cartItems } }
         >
           <span
             role="img"

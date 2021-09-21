@@ -10,6 +10,7 @@ class SaibaMaisPag extends React.Component {
       qtd: 1,
       item: {},
       objeto: '',
+      cartItems: [],
     };
 
     this.itemSaibaMais = this.itemSaibaMais.bind(this);
@@ -32,8 +33,10 @@ class SaibaMaisPag extends React.Component {
     const { location: { onClick } } = this.props;
     const { qtd, item: { id, title, price, thumbnail } } = this.state;
     for (let cont = 0; cont < qtd; cont += 1) {
-      // console.log(location);
       onClick(title, price, thumbnail, id);
+      const img = thumbnail;
+      const item = { id, title, price, img };
+      this.setState((prev) => ({ cartItems: [...prev.cartItems, item] }));
     }
   }
 
@@ -48,7 +51,7 @@ class SaibaMaisPag extends React.Component {
   }
 
   render() {
-    const { item: { title, price, thumbnail }, qtd, objeto } = this.state;
+    const { item: { title, price, thumbnail }, qtd, objeto, cartItems } = this.state;
 
     return (
       <section>
@@ -58,7 +61,10 @@ class SaibaMaisPag extends React.Component {
               return
             </span>
           </Link>
-          <Link data-testid="shopping-cart-button" to="/carrinho">
+          <Link
+            data-testid="shopping-cart-button"
+            to={ { pathname: '/carrinho', carrArr: cartItems } }
+          >
             <span
               role="img"
               aria-label="carrinho compra icone"
@@ -83,12 +89,34 @@ class SaibaMaisPag extends React.Component {
             <textarea value={ objeto } />
 
             <div>
-              <button type="button" name="add" onClick={ this.handleChange }> &#10133; </button>
+              <button
+                type="button"
+                name="add"
+                onClick={ this.handleChange }
+              >
+                {' '}
+                &#10133;
+                {' '}
+
+              </button>
               <h3>{ qtd }</h3>
-              <button type="button" name="remove" onClick={ this.handleChange }> &#10134; </button>
+              <button
+                type="button"
+                name="remove"
+                onClick={ this.handleChange }
+              >
+                {' '}
+                &#10134;
+                {' '}
+
+              </button>
             </div>
           </article>
-          <button data-testid="product-detail-add-to-cart" type="button" onClick={ this.addItems }>
+          <button
+            data-testid="product-detail-add-to-cart"
+            type="button"
+            onClick={ this.addItems }
+          >
             Adicionar ao Carrinho
           </button>
         </main>
@@ -101,6 +129,7 @@ SaibaMaisPag.propTypes = {
   location: PropTypes.shape({
     id: PropTypes.string.isRequired,
     products: PropTypes.arrayOf().isRequired,
+    onClick: PropTypes.func,
   }).isRequired,
 };
 
