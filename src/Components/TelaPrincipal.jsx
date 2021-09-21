@@ -39,7 +39,9 @@ class TelaPrincipal extends React.Component {
 
   addItemToCar(title, price, img, id) {
     const { carr } = this.state;
-    carr.push({ title, price, img, id });
+    this.setState({
+      carr: [...carr, { title, price, img, id }],
+    });
   }
 
   render() {

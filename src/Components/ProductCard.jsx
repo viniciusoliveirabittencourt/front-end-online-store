@@ -12,7 +12,7 @@ class ProductCard extends React.Component {
         <h2>{ price }</h2>
         <Link
           data-testid="product-detail-link"
-          to={ { pathname: '/SaibaMais', id: `${id}`, products } }
+          to={ { pathname: '/SaibaMais', id: `${id}`, products, onClick } }
         >
           <span>
             Saiba Mais
