@@ -29,7 +29,9 @@ class TelaCarrinhoCompras extends React.Component {
         >
           { carrArr ? carrArr.length : 0 }
         </h1>
-        { this.addCarrinhoComponent().length !== 0 ? this.addCarrinhoComponent() : <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p> }
+        { this.addCarrinhoComponent()
+          .length !== 0 ? this.addCarrinhoComponent()
+          : <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p> }
       </div>
     );
   }
