@@ -5,18 +5,54 @@ import PropTypes from 'prop-types';
 class SaibaMaisPag extends React.Component {
   constructor() {
     super();
-    this.obtemObjetoNecessarioParaCriarAPagina = this
-      .obtemObjetoNecessarioParaCriarAPagina.bind(this);
+
+    this.state = {
+      qtd: 1,
+      item: {},
+      objeto: '',
+      cartItems: [],
+    };
+
+    this.itemSaibaMais = this.itemSaibaMais.bind(this);
   }
 
-  obtemObjetoNecessarioParaCriarAPagina() {
+  componentDidMount() {
+    this.itemSaibaMais();
+  }
+
+  handleChange = ({ target }) => {
+    const { name } = target;
+    if (name === 'add') {
+      this.setState((state) => ({ qtd: state.qtd + 1 }));
+    } else {
+      this.setState((state) => ({ qtd: state.qtd - 1 }));
+    }
+  };
+
+  addItems = () => {
+    const { location: { onClick } } = this.props;
+    const { qtd, item: { id, title, price, thumbnail } } = this.state;
+    for (let cont = 0; cont < qtd; cont += 1) {
+      onClick(title, price, thumbnail, id);
+      const img = thumbnail;
+      const item = { id, title, price, img };
+      this.setState((prev) => ({ cartItems: [...prev.cartItems, item] }));
+    }
+  }
+
+  itemSaibaMais() {
     const { location: { id, products } } = this.props;
-    const object = products.find((element) => element.id === id);
-    return object;
+    const item = products.find((element) => element.id === id);
+    const objeto = JSON.stringify(item);
+    this.setState({
+      item,
+      objeto,
+    });
   }
 
   render() {
-    console.log(this.obtemObjetoNecessarioParaCriarAPagina());
+    const { item: { title, price, thumbnail }, qtd, objeto, cartItems } = this.state;
+
     return (
       <section>
         <header>
@@ -25,7 +61,10 @@ class SaibaMaisPag extends React.Component {
               return
             </span>
           </Link>
-          <Link data-testid="shopping-cart-button" to="/carrinho">
+          <Link
+            data-testid="shopping-cart-button"
+            to={ { pathname: '/carrinho', carrArr: cartItems } }
+          >
             <span
               role="img"
               aria-label="carrinho compra icone"
@@ -36,21 +75,50 @@ class SaibaMaisPag extends React.Component {
         </header>
         <main>
           <h1 data-testid="product-detail-name">
-            { this.obtemObjetoNecessarioParaCriarAPagina().title }
+            <p data-testid="shopping-cart-product-name">{ title }</p>
             {' '}
             - R$
             {' '}
-            { this.obtemObjetoNecessarioParaCriarAPagina().price }
+            { price }
           </h1>
           <article>
             <img
               alt="productImg"
-              src={ this.obtemObjetoNecessarioParaCriarAPagina().thumbnail }
+              src={ thumbnail }
             />
-            <textarea>
-              { JSON.stringify(this.obtemObjetoNecessarioParaCriarAPagina()) }
-            </textarea>
+            <textarea value={ objeto } />
+
+            <div>
+              <button
+                type="button"
+                name="add"
+                onClick={ this.handleChange }
+              >
+                {' '}
+                &#10133;
+                {' '}
+
+              </button>
+              <h3>{ qtd }</h3>
+              <button
+                type="button"
+                name="remove"
+                onClick={ this.handleChange }
+              >
+                {' '}
+                &#10134;
+                {' '}
+
+              </button>
+            </div>
           </article>
+          <button
+            data-testid="product-detail-add-to-cart"
+            type="button"
+            onClick={ this.addItems }
+          >
+            Adicionar ao Carrinho
+          </button>
         </main>
       </section>
     );
@@ -61,6 +129,7 @@ SaibaMaisPag.propTypes = {
   location: PropTypes.shape({
     id: PropTypes.string.isRequired,
     products: PropTypes.arrayOf().isRequired,
+    onClick: PropTypes.func,
   }).isRequired,
 };
 
