@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-class ProductCard extends React.Component {
+class CardProduto extends React.Component {
   render() {
     const { title, price, img, id, products, onClick } = this.props;
     return (
@@ -30,7 +30,7 @@ class ProductCard extends React.Component {
   }
 }
 
-ProductCard.propTypes = {
+CardProduto.propTypes = {
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   img: PropTypes.string.isRequired,
@@ -41,4 +41,4 @@ ProductCard.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default ProductCard;
+export default CardProduto;

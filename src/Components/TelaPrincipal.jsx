@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
-import CardCategories from './CardCategories';
-import ProductCard from './ProductCard';
+import CardCategoria from './CardCategoriaTelaPrincipal';
+import CardProduto from './CardProdutoTelaPrincipal';
 
 class TelaPrincipal extends React.Component {
   constructor() {
@@ -14,19 +14,18 @@ class TelaPrincipal extends React.Component {
       categories: [],
       cartItems: [],
     };
-    this.addItemToCar = this.addItemToCar.bind(this);
   }
 
   componentDidMount() {
     this.getAllCategories();
   }
 
-  handleChange = ({ target }) => {
+  searchHandleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
 
-  callApi = async (params = '') => {
+  callApiGetProduct = async (params = '') => {
     const { searchFor } = this.state;
     const search = await getProductsFromCategoryAndQuery(params, searchFor);
     this.setState({ products: search.results });
@@ -37,7 +36,7 @@ class TelaPrincipal extends React.Component {
     this.setState({ categories: data });
   }
 
-  addItemToCar(title, price, img, id) {
+  addItemToCar = (title, price, img, id) => {
     this.setState({
       cartItems: [{ title, price, img, id }],
     });
@@ -53,14 +52,14 @@ class TelaPrincipal extends React.Component {
             data-testid="query-input"
             type="text"
             name="searchFor"
-            onChange={ this.handleChange }
+            onChange={ this.searchHandleChange }
             value={ searchFor }
           />
         </label>
         <button
           data-testid="query-button"
           type="button"
-          onClick={ this.callApi }
+          onClick={ this.callApiGetProduct }
         >
           Search
         </button>
@@ -79,17 +78,17 @@ class TelaPrincipal extends React.Component {
 
         <section>
           <ul>
-            {categories
-              .map((element) => (<CardCategories
+            { categories
+              .map((element) => (<CardCategoria
                 key={ element.id }
                 category={ element }
-                onClick={ this.callApi }
-              />))}
+                onClick={ this.callApiGetProduct }
+              />)) }
           </ul>
         </section>
         <section>
-          {products
-            .map(({ title, price, id, thumbnail }) => (<ProductCard
+          { products
+            .map(({ title, price, id, thumbnail }) => (<CardProduto
               products={ products }
               id={ id }
               key={ id }
@@ -97,7 +96,7 @@ class TelaPrincipal extends React.Component {
               title={ title }
               price={ price }
               onClick={ this.addItemToCar }
-            />))}
+            />)) }
         </section>
       </div>
     );

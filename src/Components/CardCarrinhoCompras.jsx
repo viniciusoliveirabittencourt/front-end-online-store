@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class CarrinhoComponent extends React.Component {
+class CardCarrinhoCompras extends React.Component {
   render() {
     const { title, img, price } = this.props;
     return (
@@ -14,10 +14,10 @@ class CarrinhoComponent extends React.Component {
   }
 }
 
-CarrinhoComponent.propTypes = {
+CardCarrinhoCompras.propTypes = {
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
 };
 
-export default CarrinhoComponent;
+export default CardCarrinhoCompras;

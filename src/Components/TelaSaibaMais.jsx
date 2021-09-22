@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-class SaibaMaisPag extends React.Component {
+class TelaSaibaMais extends React.Component {
   constructor() {
     super();
 
@@ -12,15 +12,13 @@ class SaibaMaisPag extends React.Component {
       objeto: '',
       cartItems: [],
     };
-
-    this.itemSaibaMais = this.itemSaibaMais.bind(this);
   }
 
   componentDidMount() {
     this.itemSaibaMais();
   }
 
-  handleChange = ({ target }) => {
+  qtdHandleChange = ({ target }) => {
     const { name } = target;
     if (name === 'add') {
       this.setState((state) => ({ qtd: state.qtd + 1 }));
@@ -40,7 +38,7 @@ class SaibaMaisPag extends React.Component {
     }
   }
 
-  itemSaibaMais() {
+  itemSaibaMais = () => {
     const { location: { id, products } } = this.props;
     const item = products.find((element) => element.id === id);
     const objeto = JSON.stringify(item);
@@ -76,9 +74,9 @@ class SaibaMaisPag extends React.Component {
         <main>
           <h1 data-testid="product-detail-name">
             <p data-testid="shopping-cart-product-name">{ title }</p>
-            {' '}
+            { ' ' }
             - R$
-            {' '}
+            { ' ' }
             { price }
           </h1>
           <article>
@@ -92,22 +90,22 @@ class SaibaMaisPag extends React.Component {
               <button
                 type="button"
                 name="add"
-                onClick={ this.handleChange }
+                onClick={ this.qtdHandleChange }
               >
-                {' '}
+                { ' ' }
                 &#10133;
-                {' '}
+                { ' ' }
 
               </button>
               <h3>{ qtd }</h3>
               <button
                 type="button"
                 name="remove"
-                onClick={ this.handleChange }
+                onClick={ this.qtdHandleChange }
               >
-                {' '}
+                { ' ' }
                 &#10134;
-                {' '}
+                { ' ' }
 
               </button>
             </div>
@@ -125,7 +123,7 @@ class SaibaMaisPag extends React.Component {
   }
 }
 
-SaibaMaisPag.propTypes = {
+TelaSaibaMais.propTypes = {
   location: PropTypes.shape({
     id: PropTypes.string.isRequired,
     products: PropTypes.arrayOf().isRequired,
@@ -133,4 +131,4 @@ SaibaMaisPag.propTypes = {
   }).isRequired,
 };
 
-export default SaibaMaisPag;
+export default TelaSaibaMais;

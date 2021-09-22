@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CarrinhoComponent from './Carrinhos-Compents/CarrinhoComponet';
+import CardCarrinhoCompras from './CardCarrinhoCompras';
 
 class TelaCarrinhoCompras extends React.Component {
   constructor() {
     super();
     this.state = { cartItems: [] };
-    this.addCarrinhoComponent = this.addCarrinhoComponent.bind(this);
   }
 
   componentDidMount() {
     this.addCarrinhoComponent();
   }
 
-  addCarrinhoComponent() {
+  addCarrinhoComponent = () => {
     const { location } = this.props;
     const { carrArr } = location;
-    const items = carrArr.map(({ title, price, img }, index) => (<CarrinhoComponent
+    console.log('location: ', location);
+    console.log('carrArr: ', carrArr);
+    const items = carrArr.map(({ title, price, img }, index) => (<CardCarrinhoCompras
       title={ title }
       price={ price }
       img={ img }
@@ -36,8 +37,7 @@ class TelaCarrinhoCompras extends React.Component {
         >
           { carrArr ? carrArr.length : 0 }
         </h1>
-        { cartItems
-          .length !== 0 ? cartItems
+        { cartItems.length !== 0 ? cartItems
           : <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p> }
       </div>
     );
