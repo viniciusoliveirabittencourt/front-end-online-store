@@ -18,7 +18,7 @@ class TelaSaibaMais extends React.Component {
     this.itemSaibaMais();
   }
 
-  handleChange = ({ target }) => {
+  qtdHandleChange = ({ target }) => {
     const { name } = target;
     if (name === 'add') {
       this.setState((state) => ({ qtd: state.qtd + 1 }));
@@ -90,7 +90,7 @@ class TelaSaibaMais extends React.Component {
               <button
                 type="button"
                 name="add"
-                onClick={ this.handleChange }
+                onClick={ this.qtdHandleChange }
               >
                 { ' ' }
                 &#10133;
@@ -101,7 +101,7 @@ class TelaSaibaMais extends React.Component {
               <button
                 type="button"
                 name="remove"
-                onClick={ this.handleChange }
+                onClick={ this.qtdHandleChange }
               >
                 { ' ' }
                 &#10134;

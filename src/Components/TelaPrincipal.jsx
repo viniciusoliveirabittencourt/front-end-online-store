@@ -20,12 +20,12 @@ class TelaPrincipal extends React.Component {
     this.getAllCategories();
   }
 
-  handleChange = ({ target }) => {
+  searchHandleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
 
-  callApi = async (params = '') => {
+  callApiGetProduct = async (params = '') => {
     const { searchFor } = this.state;
     const search = await getProductsFromCategoryAndQuery(params, searchFor);
     this.setState({ products: search.results });
@@ -52,14 +52,14 @@ class TelaPrincipal extends React.Component {
             data-testid="query-input"
             type="text"
             name="searchFor"
-            onChange={ this.handleChange }
+            onChange={ this.searchHandleChange }
             value={ searchFor }
           />
         </label>
         <button
           data-testid="query-button"
           type="button"
-          onClick={ this.callApi }
+          onClick={ this.callApiGetProduct }
         >
           Search
         </button>
@@ -82,7 +82,7 @@ class TelaPrincipal extends React.Component {
               .map((element) => (<CardCategoria
                 key={ element.id }
                 category={ element }
-                onClick={ this.callApi }
+                onClick={ this.callApiGetProduct }
               />)) }
           </ul>
         </section>
