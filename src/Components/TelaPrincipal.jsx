@@ -14,7 +14,6 @@ class TelaPrincipal extends React.Component {
       categories: [],
       cartItems: [],
     };
-    this.addItemToCar = this.addItemToCar.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +36,7 @@ class TelaPrincipal extends React.Component {
     this.setState({ categories: data });
   }
 
-  addItemToCar(title, price, img, id) {
+  addItemToCar = (title, price, img, id) => {
     this.setState({
       cartItems: [{ title, price, img, id }],
     });
@@ -79,16 +78,16 @@ class TelaPrincipal extends React.Component {
 
         <section>
           <ul>
-            {categories
+            { categories
               .map((element) => (<CardCategories
                 key={ element.id }
                 category={ element }
                 onClick={ this.callApi }
-              />))}
+              />)) }
           </ul>
         </section>
         <section>
-          {products
+          { products
             .map(({ title, price, id, thumbnail }) => (<ProductCard
               products={ products }
               id={ id }
@@ -97,7 +96,7 @@ class TelaPrincipal extends React.Component {
               title={ title }
               price={ price }
               onClick={ this.addItemToCar }
-            />))}
+            />)) }
         </section>
       </div>
     );

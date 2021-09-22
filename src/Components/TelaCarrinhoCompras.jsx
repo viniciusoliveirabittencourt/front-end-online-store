@@ -6,16 +6,17 @@ class TelaCarrinhoCompras extends React.Component {
   constructor() {
     super();
     this.state = { cartItems: [] };
-    this.addCarrinhoComponent = this.addCarrinhoComponent.bind(this);
   }
 
   componentDidMount() {
     this.addCarrinhoComponent();
   }
 
-  addCarrinhoComponent() {
+  addCarrinhoComponent = () => {
     const { location } = this.props;
     const { carrArr } = location;
+    console.log('location: ', location);
+    console.log('carrArr: ', carrArr);
     const items = carrArr.map(({ title, price, img }, index) => (<CarrinhoComponent
       title={ title }
       price={ price }
@@ -36,8 +37,7 @@ class TelaCarrinhoCompras extends React.Component {
         >
           { carrArr ? carrArr.length : 0 }
         </h1>
-        { cartItems
-          .length !== 0 ? cartItems
+        { cartItems.length !== 0 ? cartItems
           : <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p> }
       </div>
     );
