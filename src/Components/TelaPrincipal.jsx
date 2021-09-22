@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
-import CardCategories from './CardCategories';
-import ProductCard from './ProductCard';
+import CardCategoria from './CardCategoriaTelaPrincipal';
+import CardProduto from './CardProdutoTelaPrincipal';
 
 class TelaPrincipal extends React.Component {
   constructor() {
@@ -79,7 +79,7 @@ class TelaPrincipal extends React.Component {
         <section>
           <ul>
             { categories
-              .map((element) => (<CardCategories
+              .map((element) => (<CardCategoria
                 key={ element.id }
                 category={ element }
                 onClick={ this.callApi }
@@ -88,7 +88,7 @@ class TelaPrincipal extends React.Component {
         </section>
         <section>
           { products
-            .map(({ title, price, id, thumbnail }) => (<ProductCard
+            .map(({ title, price, id, thumbnail }) => (<CardProduto
               products={ products }
               id={ id }
               key={ id }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class CardCategories extends React.Component {
+class CardCategorias extends React.Component {
   render() {
     const { category: { name, id }, onClick } = this.props;
     return (
@@ -19,11 +19,12 @@ class CardCategories extends React.Component {
   }
 }
 
-CardCategories.propTypes = {
+CardCategorias.propTypes = {
   category: PropTypes.shape({
     name: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
-  onClick: PropTypes.func.isRequired };
+  onClick: PropTypes.func.isRequired,
+};
 
-export default CardCategories;
+export default CardCategorias;

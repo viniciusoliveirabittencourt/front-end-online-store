@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CarrinhoComponent from './Carrinhos-Compents/CarrinhoComponet';
+import CardCarrinhoCompras from './CardCarrinhoCompras';
 
 class TelaCarrinhoCompras extends React.Component {
   constructor() {
@@ -17,7 +17,7 @@ class TelaCarrinhoCompras extends React.Component {
     const { carrArr } = location;
     console.log('location: ', location);
     console.log('carrArr: ', carrArr);
-    const items = carrArr.map(({ title, price, img }, index) => (<CarrinhoComponent
+    const items = carrArr.map(({ title, price, img }, index) => (<CardCarrinhoCompras
       title={ title }
       price={ price }
       img={ img }
